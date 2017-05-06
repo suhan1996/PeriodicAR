@@ -14,7 +14,7 @@ function main(){
         x.addEventListener('mouseenter',function(evt){
            // console.log("this is ",x);
            // if(!SpeachSynthesis.speaking) speak(name);
-            speak(name);
+            //speak(name);
 
             document.querySelector('#hidden').innerHTML = name;
         })
