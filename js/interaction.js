@@ -18,6 +18,26 @@ function main(){
 
             document.querySelector('#hidden').innerHTML = name;
         })
+        //x.addEventListener('click',function(evt){
+        //    // console.log("this is ",x);
+        //    // if(!SpeachSynthesis.speaking) speak(name);
+        //    //speak(name);
+        //    //console.log("add canvas")
+        //   // alert('jo')
+        //    if(name == 'Hydrogen'){
+        //        let div = document.createElement('div')
+        //        let cvs = document.createElement('canvas');
+        //        div.appendChild(cvs);
+        //        document.body.appendChild(div);
+        //        div.style.position = 'fixed';
+        //        cvs.style.height = '3000px';
+        //        cvs.style.weight = '3000px';
+        //        cvs.style.backgroundColor = 'red';
+        //        div.style.backgroundColor = 'red';
+        //
+        //        cvs.style.zIndex = '100000';
+        //    }
+        //})
     })
     "use strict";
 

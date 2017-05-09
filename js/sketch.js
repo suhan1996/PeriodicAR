@@ -1,10 +1,12 @@
 /**
  * Created by Suhan on 25/04/2017.
  */
+var particle_texture_purple = null,particle_texture_yellow = null,particle_texture_red = null,particle_texture_green = null;
+var ps_fe = null,ps_cu=null,ps_k=null,ps_na=null,ps_li=null;
 var capture;
 let oldname = '';
 let p5canvas,system,system1;
-var ctracker, positions=[], posNose=[],counter_H = true,counter_O=true;
+var ctracker, positions=[], posNose=[],counter_H = true,counter_O=true, counter_Fe=true,counter_li=true,counter_Cu=true,counter_Na=true, counter_K=true;
 function Back(ele){
     "use strict";
     ele.style.width = '140px';
@@ -19,6 +21,9 @@ function changeBack(ele){
 }
 
 
+function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 function changeColor(ele){
     console.log("changingbackcolor")
@@ -32,6 +37,12 @@ function changeColor(ele){
 function windowResized(){
     "use strict";
     resizeCanvas(windowWidth,windowHeight);
+}
+function preload() {
+     particle_texture_purple = loadImage("img/purple.png");
+     particle_texture_green = loadImage("img/copper.png");
+     particle_texture_yellow = loadImage("img/yellow.png");
+     particle_texture_red = loadImage("img/red.png");
 }
 function setup() {
     //let pos = positions.join();
@@ -67,7 +78,6 @@ function setup() {
     noStroke();
 
 
-
     //p5canvas.classList.add('canvas');
     //p5canvas.style('z-index','-1');
 
@@ -94,10 +104,109 @@ function setup() {
 
 function draw() {
 
+
+
+
+
     let content = document.querySelector('#hidden').innerHTML;
     //console.log(content);
 
     clear();
+
+
+    if (content == "Copper"){
+        if(counter_Cu==true){
+            ps_cu = new ParticleSystem_Air(0,createVector(width / 2, height - 60),particle_texture_green);
+//                    system = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            //var dx = map(mouseX,0,width,-0.2,0.2);
+            var dx = mouseX - windowWidth/2;
+            counter_Cu = false;
+        }
+        if(counter_Cu == false){
+            //fire
+            var wind = createVector(getRandomArbitrary(-0.11,0.11),-Math.random()*0.25);
+
+            ps_cu.applyForce(wind);
+            ps_cu.run();
+            ps_cu.addParticle();
+// fire end
+        }
+
+    }
+    if (content == "Iron"){
+        if(counter_Fe==true){
+            ps_fe = new ParticleSystem_Air(0,createVector(width / 2, height - 60),particle_texture_yellow);
+//                    system = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            var dx = map(mouseX,0,width,-0.2,0.2);
+            counter_Fe = false;
+        }
+        if(counter_Fe == false){
+            //fire
+            var wind = createVector(getRandomArbitrary(-0.11,0.11),-Math.random()*0.25);
+
+            ps_fe.applyForce(wind);
+            ps_fe.run();
+            ps_fe.addParticle();
+// fire end
+        }
+
+    }
+    if (content == "Sodium"){
+        if(counter_Na==true){
+            ps_na = new ParticleSystem_Air(0,createVector(width / 2, height - 60),particle_texture_yellow);
+//                    system = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            var dx = map(mouseX,0,width,-0.2,0.2);
+            counter_Fe = false;
+        }
+        if(counter_Na == false){
+            //fire
+            var wind = createVector(getRandomArbitrary(-0.11,0.11),-Math.random()*0.25);
+
+            ps_na.applyForce(wind);
+            ps_na.run();
+            ps_na.addParticle();
+// fire end
+        }
+
+    }
+    if (content == "Potassium"){
+        if(counter_K==true){
+            ps_k = new ParticleSystem_Air(0,createVector(width / 2, height - 60),particle_texture_purple);
+//                    system = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            var dx = map(mouseX,0,width,-0.2,0.2);
+            counter_K = false;
+        }
+        if(counter_K == false){
+            //fire
+            var wind = createVector(getRandomArbitrary(-0.11,0.11),-Math.random()*0.25);
+
+            ps_k.applyForce(wind);
+            ps_k.run();
+            ps_k.addParticle();
+// fire end
+        }
+
+    }
+    if (content == "Lithium"){
+        if(counter_li==true){
+            ps_li = new ParticleSystem_Air(0,createVector(width / 2, height - 60),particle_texture_red);
+//                    system = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            var dx = map(mouseX,0,width,-0.2,0.2);
+            counter_li = false;
+        }
+        if(counter_li == false){
+            //fire
+            var wind = createVector(getRandomArbitrary(-0.11,0.11),-Math.random()*0.25);
+
+            ps_li.applyForce(wind);
+            ps_li.run();
+            ps_li.addParticle();
+// fire end
+        }
+
+    }
+
+
     // get array of face marker positions [x, y] format
      positions = ctracker.getCurrentPosition();
     //let pos = positions.join(" ");
@@ -109,7 +218,7 @@ function draw() {
             //box-shadow: 0px 0px 20px rgba(0,255,255,0.5);
 
             let seletEle = document.elementFromPoint(positions[i][0], positions[i][1]);
-
+if(seletEle!=null){
             if (seletEle.classList.contains('element')){
 
                 console.log(seletEle);
@@ -123,6 +232,7 @@ function draw() {
                 //spk=false
 
             }
+}
 
 
 
@@ -148,6 +258,8 @@ function draw() {
             }
 
 
+
+
             if (content == "Oxygen") {
                 if (counter_O == true) {
                     system1 = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
@@ -159,6 +271,8 @@ function draw() {
                 }
 
             }}}
+
+
 
 
 
@@ -320,6 +434,137 @@ CrazyParticle.prototype.display=function() {
     pop();
 }
 
+//fire on fire!
+
+
+function drawVector(v,loc,scale){
+    push();
+    var arrowsize = 4;
+    translate(loc.x,loc.y);
+    stroke(255);
+    rotate(v.heading());
+
+    var len = v.mag() * scale;
+    line(0,0,len,0);
+    line(len,0,len-arrowsize,+arrowsize/2);
+    line(len,0,len-arrowsize,-arrowsize/2);
+    pop();
+}
+
+var ParticleSystem_Air = function(num,v,img_) {
+
+    this.particles = [];
+    this.origin = v.copy(); // we make sure to copy the vector value in case we accidentally mutate the original by accident
+    this.img = img_
+    for(var i = 0; i < num; ++i){
+        this.particles.push(new Particle_Air(this.origin,this.img));
+    }
+};
+
+/**
+ * This function runs the entire particle system.
+ */
+ParticleSystem_Air.prototype.run = function() {
+
+    // cache length of the array we're going to loop into a variable
+    // You may see <variable>.length in a for loop, from time to time but
+    // we cache it here because otherwise the length is re-calculated for each iteration of a loop
+    var len = this.particles.length;
+
+    //loop through and run particles
+    for (var i = len - 1; i >= 0; i--) {
+        var particle = this.particles[i];
+        particle.run();
+
+        // if the particle is dead, we remove it.
+        // javascript arrays don't have a "remove" function but "splice" works just as well.
+        // we feed it an index to start at, then how many numbers from that point to remove.
+        if (particle.isDead()) {
+            this.particles.splice(i,1);
+        }
+    }
+}
+
+/**
+ * Method to add a force vector to all particles currently in the system
+ * @param dir a p5.Vector describing the direction of the force.
+ */
+ParticleSystem_Air.prototype.applyForce = function(dir) {
+    var len = this.particles.length;
+    for(var i = 0; i < len; ++i){
+        this.particles[i].applyForce(dir);
+    }
+}
+
+/**
+ * Adds a new particle to the system at the origin of the system and with
+ * the originally set texture.
+ */
+ParticleSystem_Air.prototype.addParticle = function() {
+    this.particles.push(new Particle_Air(this.origin,this.img));
+}
+
+//========= PARTICLE  ===========
+/**
+ *  A simple Particle class, renders the particle as an image
+ */
+var Particle_Air = function (pos, img_) {
+    this.loc = pos.copy();
+
+    var vx = randomGaussian() * 0.3;
+    var vy = randomGaussian() * 0.3 - 1.0;
+
+    this.vel = createVector(vx,vy);
+    this.acc = createVector();
+    this.lifespan = 100.0;
+    this.texture = img_;
+}
+
+/**
+ *  Simulataneously updates and displays a particle.
+ */
+Particle_Air.prototype.run = function() {
+    this.update();
+    this.render();
+}
+
+/**
+ *  A function to display a particle
+ */
+Particle_Air.prototype.render = function() {
+    imageMode(CENTER);
+    tint(255,this.lifespan);
+    image(this.texture,this.loc.x,this.loc.y);
+}
+
+/**
+ *  A method to apply a force vector to a particle.
+ */
+Particle_Air.prototype.applyForce = function(f) {
+    this.acc.add(f);
+}
+
+/**
+ *  This method checks to see if the particle has reached the end of it's lifespan,
+ *  if it has, return true, otherwise return false.
+ */
+Particle_Air.prototype.isDead = function () {
+    if (this.lifespan <= 0.0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ *  This method updates the position of the particle.
+ */
+Particle_Air.prototype.update = function() {
+    this.vel.add(this.acc);
+    this.loc.add(this.vel);
+    this.lifespan -= 1.5;
+    this.acc.mult(0);
+}
 
 
 
