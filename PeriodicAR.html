@@ -112,11 +112,45 @@
 				color: #000000;
 				background-color: rgba(0,255,255,0.75);
 			}
+			.model {
+				display: none;
+			}
+			#H:hover .model {
+				z-index: 100000;
+				/*background-color: red;*/
+				display: block;
+				/*width: 1600;
+				height: 1600;*/
+				top: -150px;
+				left: 600px;
+				position: absolute;
+			}
+			#O:hover .model {
+				z-index: 100000;
+				/*background-color: red;*/
+				display: block;
+				/*width: 1600;
+				height: 1600;*/
+				top: -500px;
+				left: -1800px;
+				position: absolute;
+			}
+			#Fe:hover .model {
+				z-index: 100000;
+				/*background-color: red;*/
+				display: block;
+				/*width: 1600;
+				height: 1600;*/
+				top: -950px;
+				left: -550px;
+				position: absolute;
+			}
 		</style>
 	</head>
 	<body>
 
 		<script type="text/javascript">
+			var window_start = false;
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-86951-7']);
 		  _gaq.push(['_trackPageview']);
@@ -140,15 +174,20 @@
 		<!--<script src="build/tracking-min.js"></script>-->
 		<!--<script src="build/data/face-min.js"></script>-->
 		<script src="js/sketch.js"></script>
+		<script src="atomModels/createModels.js"></script>
+		<script src="atomModels/M.js"></script>
+		<script src="atomModels/lib2k.js"></script>
+		<script src="atomModels/SHAPE.js"></script>
 <<div id="hidden"></div>
-		<div id="container"></div>
 		<div id="info">- AR Interactive periodic table, based on. <a href="http://threejs.org" target="_blank">three.js css3d</a> <a href="https://plus.google.com/113862800338869870683/posts/QcFk5HrWran" target="_blank">info</a>.</div>
+		<div id="container"></div>
 
 		<div id="menu">
 			<button id="table">TABLE</button>
 			<button id="sphere">SPHERE</button>
 			<button id="helix">HELIX</button>
 			<button id="grid">GRID</button>
+			<button id="AR">AR</button>
 
 		<script>
 
@@ -352,6 +391,66 @@
 					object.position.z = Math.random() * 4000 - 2000;
 					scene.add( object );
 
+					if(item[0] === 'H') {
+						element.id = 'H';
+						var ModelH = document.createElement( 'div' );
+						ModelH.className = 'model';
+						
+						ModelH.style.height = '1024px';
+						ModelH.style.width = '1024px';
+						
+						var CanvasH = document.createElement('canvas');
+						CanvasH.style.width = '1024px';
+						CanvasH.style.height = '1024px';
+						// var CanvasH = document.querySelector('#container canvas');
+						element.addEventListener('mouseover', function(evt) {
+							createHModel(CanvasH);
+						});
+						// var container = document.getElementById('container');
+						ModelH.appendChild( CanvasH );
+						element.appendChild( ModelH );
+					}
+
+					if(item[0] === 'O') {
+						element.id = 'O';
+						var ModelO = document.createElement( 'div' );
+						ModelO.className = 'model';
+						
+						ModelO.style.height = '1056px';
+						ModelO.style.width = '1056px';
+						
+						var CanvasO = document.createElement('canvas');
+						CanvasO.style.width = '1056px';
+						CanvasO.style.height = '1056px';
+						// var CanvasH = document.querySelector('#container canvas');
+						element.addEventListener('mouseover', function(evt) {
+							createOModel(CanvasO);
+						});
+						// var container = document.getElementById('container');
+						ModelO.appendChild( CanvasO );
+						element.appendChild( ModelO );
+					}
+
+					if(item[0] === 'Fe') {
+						element.id = 'Fe';
+						var ModelFe = document.createElement( 'div' );
+						ModelFe.className = 'model';
+						
+						ModelFe.style.height = '1056px';
+						ModelFe.style.width = '1056px';
+						
+						var CanvasFe = document.createElement('canvas');
+						CanvasFe.style.width = '1056px';
+						CanvasFe.style.height = '1056px';
+						// var CanvasH = document.querySelector('#container canvas');
+						element.addEventListener('mouseover', function(evt) {
+							createFeModel(CanvasFe);
+						});
+						// var container = document.getElementById('container');
+						ModelFe.appendChild( CanvasFe );
+						element.appendChild( ModelFe );
+					}
+
 					objects.push( object );
 
 				}
@@ -497,6 +596,14 @@
 					transform( targets.grid, 2000 );
 
 				}, false );
+
+					var button = document.getElementById( 'AR' );
+				button.addEventListener( 'click', function ( event ) {
+
+						window_start = true;
+						//alert(window_start);
+
+				});
 
 				transform( targets.table, 5000 );
 

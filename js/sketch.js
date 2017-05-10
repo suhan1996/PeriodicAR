@@ -1,6 +1,9 @@
 /**
  * Created by Suhan on 25/04/2017.
  */
+
+
+var keep = true,start=false;
 var particle_texture_purple = null,particle_texture_yellow = null,particle_texture_red = null,particle_texture_green = null;
 var ps_fe = null,ps_cu=null,ps_k=null,ps_na=null,ps_li=null;
 var capture;
@@ -39,12 +42,35 @@ function windowResized(){
     resizeCanvas(windowWidth,windowHeight);
 }
 function preload() {
-     particle_texture_purple = loadImage("img/purple.png");
-     particle_texture_green = loadImage("img/copper.png");
-     particle_texture_yellow = loadImage("img/yellow.png");
-     particle_texture_red = loadImage("img/red.png");
+     particle_texture_purple = loadImage("imgs/purple.png");
+     particle_texture_green = loadImage("imgs/copper.png");
+     particle_texture_yellow = loadImage("imgs/yellow.png");
+     particle_texture_red = loadImage("imgs/red.png");
+}
+function LaunchAR(){
+      start = window_start;
+     var a = Math.random();
+     //console.log(start,a);
+    if(start&&keep){
+        keep=false;
+    //cnv.position(0, 0);
+
+    var videoInput = createCapture(VIDEO);
+    videoInput.size(1*windowWidth, 1.35*windowHeight);
+    videoInput.position(0, 0);
+
+    // setup canvas
+    // setup tracker
+    ctracker = new clm.tracker();
+    ctracker.init(pModel);
+    ctracker.start(videoInput.elt);
+    noStroke();
+    }
 }
 function setup() {
+     var cnv = createCanvas(windowWidth, windowHeight);
+
+    setInterval(LaunchAR,500);
     //let pos = positions.join();
     //setInterval(document.querySelector('#hidden').innerHTML = pos, 500);
 
@@ -63,19 +89,7 @@ function setup() {
     //ctracker.start(capture.elt);
     //noStroke();
     //system = new ParticleSystem(createVector(500,500));
-    var cnv = createCanvas(windowWidth, windowHeight);
-    //cnv.position(0, 0);
-
-    var videoInput = createCapture(VIDEO);
-    videoInput.size(1*windowWidth, 1.35*windowHeight);
-    videoInput.position(0, 0);
-
-    // setup canvas
-    // setup tracker
-    ctracker = new clm.tracker();
-    ctracker.init(pModel);
-    ctracker.start(videoInput.elt);
-    noStroke();
+   
 
 
     //p5canvas.classList.add('canvas');
@@ -205,7 +219,7 @@ function draw() {
         }
 
     }
-
+if(start){
 
     // get array of face marker positions [x, y] format
      positions = ctracker.getCurrentPosition();
@@ -260,19 +274,21 @@ if(seletEle!=null){
 
 
 
-            if (content == "Oxygen") {
-                if (counter_O == true) {
-                    system1 = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
-                    counter_O = false;
-                }
-                if (counter_O == false) {
-                    system1.addParticle(0.5, 240, 40);
-                    system1.run();
-                }
+            // if (content == "Oxygen") {
+            //     if (counter_O == true) {
+            //         system1 = new ParticleSystem(createVector(positions[i][0], positions[i][1]));
+            //         counter_O = false;
+            //     }
+            //     if (counter_O == false) {
+            //         system1.addParticle(0.5, 240, 40);
+            //         system1.run();
+            //     }
 
-            }}}
+            // }
+        
+    }}
 
-
+}
 
 
 
